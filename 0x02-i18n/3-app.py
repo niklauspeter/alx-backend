@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Use Get locale fucnction with babel.localeselector decorator 
-use request.accept_languages to determine best match with
-supported languages
+Parametrize templates
 """
 
 import babel
@@ -28,8 +26,7 @@ app.config.from_object(Config)
 @babel.localeselector
 def get_locale():
     """
-     use function to determine the
-     best match with our supported languages.
+     determine the best match with our supported languages.
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
@@ -37,9 +34,9 @@ def get_locale():
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index():
     """
-    render to hello world template
+    hello world
     """
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
