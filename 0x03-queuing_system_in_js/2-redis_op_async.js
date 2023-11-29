@@ -20,13 +20,9 @@ function setNewSchool(schoolName, value) {
     });
 }
 
-let displaySchoolValue = async (schoolName) => {
-    try {
-        const result = await getAsync(schoolName);
-        console.log(result);
-    } catch (error) {
-        console.error(`Error retrieving value for ${schoolName}: ${error.message}`);
-    }
+let displaySchoolValue = async schoolName => {
+    const getAsync = util.promisify(client.get).bind(client);
+    console.log(await getAsync(schoolName));
 };
 displaySchoolValue('Holberton');
 setNewSchool('HolbertonSanFrancisco', '100');
