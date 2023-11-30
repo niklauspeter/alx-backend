@@ -19,15 +19,25 @@ function setNewSchool(schoolName, value) {
         redis.print(`Reply: ${response}`);
     });
 }
-
-let displaySchoolValue = async (schoolName) => {
-    try {
-        const result = await getAsync(schoolName);
-        console.log(result);
-    } catch (error) {
-        console.error(`Error retrieving value for ${schoolName}: ${error.message}`);
-    }
+const displaySchoolValue = (schoolName, callback) => {
+    getAsync(schoolName)
+        .then(result => {
+            console.log(result);
+            callback(null, result); // Pass the result to the callback
+        })
+        .catch(error => {
+            console.error(`Error retrieving value for ${schoolName}: ${error.message}`);
+            callback(error, null); // Pass the error to the callback
+        });
 };
+// let displaySchoolValue = async (schoolName) => {
+//     try {
+//         const result = await getAsync(schoolName);
+//         console.log(result);
+//     } catch (error) {
+//         console.error(`Error retrieving value for ${schoolName}: ${error.message}`);
+//     }
+// };
 displaySchoolValue('Holberton');
 setNewSchool('HolbertonSanFrancisco', '100');
 displaySchoolValue('HolbertonSanFrancisco');
